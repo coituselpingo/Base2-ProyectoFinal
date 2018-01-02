@@ -140,7 +140,7 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `dimcine`.`Hechos` ;
 
 CREATE TABLE IF NOT EXISTS `dimcine`.`Hechos` (
-  `idHechos` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL,
   `Peliculas_id` INT(11) NOT NULL,
   `Promocion_id` INT(11) NOT NULL,
   `Fecha_id` INT(11) NOT NULL,
@@ -149,47 +149,47 @@ CREATE TABLE IF NOT EXISTS `dimcine`.`Hechos` (
   `Cine_id` INT(11) NOT NULL,
   `Genero_id` INT(11) NOT NULL,
   `Aforo_id` INT(11) NOT NULL,
-  PRIMARY KEY (`idHechos`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_Hechos_Peliculas`
     FOREIGN KEY (`Peliculas_id`)
     REFERENCES `dimcine`.`Peliculas` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Hechos_Promocion1`
     FOREIGN KEY (`Promocion_id`)
     REFERENCES `dimcine`.`Promocion` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Hechos_Fecha1`
     FOREIGN KEY (`Fecha_id`)
     REFERENCES `dimcine`.`Fecha` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Hechos_Sala1`
     FOREIGN KEY (`Sala_id`)
     REFERENCES `dimcine`.`Sala` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Hechos_Clasificacion1`
     FOREIGN KEY (`Clasificacion_id`)
     REFERENCES `dimcine`.`Clasificacion` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Hechos_Cine1`
     FOREIGN KEY (`Cine_id`)
     REFERENCES `dimcine`.`Cine` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Hechos_Genero1`
     FOREIGN KEY (`Genero_id`)
     REFERENCES `dimcine`.`Genero` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Hechos_Aforo1`
     FOREIGN KEY (`Aforo_id`)
     REFERENCES `dimcine`.`Aforo` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -262,8 +262,8 @@ CREATE TABLE IF NOT EXISTS `transccine`.`Sala` (
   CONSTRAINT `fk_Sala_Cine1`
     FOREIGN KEY (`Cine_id`)
     REFERENCES `transccine`.`Cine` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -276,22 +276,22 @@ CREATE INDEX `fk_Sala_Cine1_idx` ON `transccine`.`Sala` (`Cine_id` ASC);
 DROP TABLE IF EXISTS `transccine`.`Funcion` ;
 
 CREATE TABLE IF NOT EXISTS `transccine`.`Funcion` (
-  `Pelicula_id` INT(11) NOT NULL,
-  `Sala_id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL,
   `dia` DATE NULL DEFAULT NULL,
   `hora` TIME NULL DEFAULT NULL,
-  `id` INT(11) NOT NULL,
+  `Pelicula_id` INT(11) NOT NULL,
+  `Sala_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_Funcion_Pelicula1`
     FOREIGN KEY (`Pelicula_id`)
     REFERENCES `transccine`.`Pelicula` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Funcion_Sala1`
     FOREIGN KEY (`Sala_id`)
     REFERENCES `transccine`.`Sala` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -319,20 +319,20 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `transccine`.`Genero_Pelicula` ;
 
 CREATE TABLE IF NOT EXISTS `transccine`.`Genero_Pelicula` (
+  `id` INT(11) NOT NULL,
   `Genero_id` INT(11) NOT NULL,
   `Pelicula_id` INT(11) NOT NULL,
-  `id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_Genero_has_Pelicula_Genero1`
     FOREIGN KEY (`Genero_id`)
     REFERENCES `transccine`.`Genero` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Genero_has_Pelicula_Pelicula1`
     FOREIGN KEY (`Pelicula_id`)
     REFERENCES `transccine`.`Pelicula` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -358,8 +358,8 @@ CREATE TABLE IF NOT EXISTS `transccine`.`Opinion` (
   CONSTRAINT `fk_Opinion_Pelicula1`
     FOREIGN KEY (`Pelicula_id`)
     REFERENCES `transccine`.`Pelicula` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -385,18 +385,20 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `transccine`.`Pelicula_Pais` ;
 
 CREATE TABLE IF NOT EXISTS `transccine`.`Pelicula_Pais` (
+  `id` VARCHAR(45) NOT NULL,
   `Pelicula_id` INT(11) NOT NULL,
   `Pais_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_Pelicula_has_Pais_Pais1`
     FOREIGN KEY (`Pais_id`)
     REFERENCES `transccine`.`Pais` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Pelicula_has_Pais_Pelicula`
     FOREIGN KEY (`Pelicula_id`)
     REFERENCES `transccine`.`Pelicula` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -432,8 +434,8 @@ CREATE TABLE IF NOT EXISTS `transccine`.`Persona` (
   CONSTRAINT `fk_Persona_Pais1`
     FOREIGN KEY (`Pais_id`)
     REFERENCES `transccine`.`Pais` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -446,26 +448,26 @@ CREATE INDEX `fk_Persona_Pais1_idx` ON `transccine`.`Persona` (`Pais_id` ASC);
 DROP TABLE IF EXISTS `transccine`.`Pelicula_Persona` ;
 
 CREATE TABLE IF NOT EXISTS `transccine`.`Pelicula_Persona` (
+  `id` INT(11) NOT NULL,
   `Pelicula_id` INT(11) NOT NULL,
   `Persona_id` INT(11) NOT NULL,
   `Roles_id` INT(11) NOT NULL,
-  `id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_Pelicula_Persona_Roles1`
     FOREIGN KEY (`Roles_id`)
     REFERENCES `transccine`.`Roles` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Pelicula_has_Persona_Pelicula1`
     FOREIGN KEY (`Pelicula_id`)
     REFERENCES `transccine`.`Pelicula` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Pelicula_has_Persona_Persona1`
     FOREIGN KEY (`Persona_id`)
     REFERENCES `transccine`.`Persona` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -485,14 +487,14 @@ CREATE TABLE IF NOT EXISTS `transccine`.`promocion` (
   `id` INT(11) NOT NULL,
   `nombre` VARCHAR(45) NULL DEFAULT NULL,
   `descripcion` TEXT(200) NULL DEFAULT NULL,
-  `Funcion_id` INT(11) NOT NULL,
   `descuento` FLOAT(4,4) NULL DEFAULT NULL,
+  `Funcion_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_promocion_Funcion1`
     FOREIGN KEY (`Funcion_id`)
     REFERENCES `transccine`.`Funcion` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 

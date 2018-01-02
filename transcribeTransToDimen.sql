@@ -73,6 +73,8 @@ Begin
     set master_id = 0;
     open master_reader;
     
+    truncate table `dimcine`.`Hechos`;
+    
     read_loop: loop
 		fetch master_reader into pelicula, presupuesto, genero,
 									clasificacion, sala, aforo,
@@ -94,6 +96,11 @@ Begin
         
         insert into `dimcine`.`Fecha` (`id`, `fecha`, `semana`, `mes`, `año`, `trimestre`) values
 			(master_id, fecha, semana, mes, año, trimestre);
+            
+		insert into `dimcine`.`Hechos` (`id`, `Peliculas_id`, `Promocion_id`, `Fecha_id`, `Sala_id`, `Clasificacion_id`,
+										`Cine_id`, `Genero_id`, `Aforo_id`) Values (master_id, master_id, master_id,
+																			master_id, master_id, master_id, master_id,
+                                                                            master_id, master_id);
         
         if done then
 			leave read_loop;
