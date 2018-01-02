@@ -5,101 +5,102 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema dim-cine
+-- Schema dimcine
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `dim-cine` ;
+DROP SCHEMA IF EXISTS `dimcine` ;
 
 -- -----------------------------------------------------
--- Schema dim-cine
+-- Schema dimcine
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `dim-cine` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `dimcine` DEFAULT CHARACTER SET utf8 ;
 -- -----------------------------------------------------
--- Schema transc-cine
+-- Schema transccine
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `transc-cine` ;
-
--- -----------------------------------------------------
--- Schema transc-cine
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `transc-cine` DEFAULT CHARACTER SET utf8 ;
-USE `dim-cine` ;
+DROP SCHEMA IF EXISTS `transccine` ;
 
 -- -----------------------------------------------------
--- Table `dim-cine`.`Aforo`
+-- Schema transccine
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dim-cine`.`Aforo` ;
-
-CREATE TABLE IF NOT EXISTS `dim-cine`.`Aforo` (
-  `idAforo` INT(11) NOT NULL,
-  `asistentes` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`idAforo`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
+CREATE SCHEMA IF NOT EXISTS `transccine` DEFAULT CHARACTER SET utf8 ;
+USE `dimcine` ;
 
 -- -----------------------------------------------------
--- Table `dim-cine`.`Cine`
+-- Table `dimcine`.`Aforo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dim-cine`.`Cine` ;
+DROP TABLE IF EXISTS `dimcine`.`Aforo` ;
 
-CREATE TABLE IF NOT EXISTS `dim-cine`.`Cine` (
-  `idCine` INT(11) NOT NULL,
-  `Nombre` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`idCine`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `dim-cine`.`Clasificacion`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dim-cine`.`Clasificacion` ;
-
-CREATE TABLE IF NOT EXISTS `dim-cine`.`Clasificacion` (
-  `idClasifacion` INT(11) NOT NULL,
-  `Edad` VARCHAR(40) NULL DEFAULT NULL,
-  PRIMARY KEY (`idClasifacion`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `dim-cine`.`Fecha`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dim-cine`.`Fecha` ;
-
-CREATE TABLE IF NOT EXISTS `dim-cine`.`Fecha` (
-  `idFecha` INT(11) NOT NULL,
-  `fecha` DATE NULL DEFAULT NULL,
-  `semana` INT(11) NULL DEFAULT NULL,
-  `mes` INT(11) NULL DEFAULT NULL,
-  `año` YEAR(4) NULL DEFAULT NULL,
-  PRIMARY KEY (`idFecha`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `dim-cine`.`Genero`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dim-cine`.`Genero` ;
-
-CREATE TABLE IF NOT EXISTS `dim-cine`.`Genero` (
-  `idGenero` INT(11) NOT NULL,
-  `tipo` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`idGenero`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `dim-cine`.`Peliculas`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dim-cine`.`Peliculas` ;
-
-CREATE TABLE IF NOT EXISTS `dim-cine`.`Peliculas` (
+CREATE TABLE IF NOT EXISTS `dimcine`.`Aforo` (
   `id` INT(11) NOT NULL,
-  `Nombre` VARCHAR(45) NULL DEFAULT NULL,
+  `asistentes` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `dimcine`.`Cine`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dimcine`.`Cine` ;
+
+CREATE TABLE IF NOT EXISTS `dimcine`.`Cine` (
+  `id` INT(11) NOT NULL,
+  `Nombre` VARCHAR(60) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `dimcine`.`Clasificacion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dimcine`.`Clasificacion` ;
+
+CREATE TABLE IF NOT EXISTS `dimcine`.`Clasificacion` (
+  `id` INT(11) NOT NULL,
+  `rango` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `dimcine`.`Fecha`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dimcine`.`Fecha` ;
+
+CREATE TABLE IF NOT EXISTS `dimcine`.`Fecha` (
+  `id` INT(11) NOT NULL,
+  `fecha` DATE NULL DEFAULT NULL,
+  `semana` INT(2) NULL DEFAULT NULL,
+  `mes` INT(2) NULL DEFAULT NULL,
+  `año` YEAR(4) NULL DEFAULT NULL,
+  `trimestre` INT(1) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `dimcine`.`Genero`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dimcine`.`Genero` ;
+
+CREATE TABLE IF NOT EXISTS `dimcine`.`Genero` (
+  `id` INT(11) NOT NULL,
+  `tipo` VARCHAR(200) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `dimcine`.`Peliculas`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dimcine`.`Peliculas` ;
+
+CREATE TABLE IF NOT EXISTS `dimcine`.`Peliculas` (
+  `id` INT(11) NOT NULL,
+  `Nombre` VARCHAR(200) NULL DEFAULT NULL,
   `presupuesto` INT(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
@@ -107,135 +108,135 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `dim-cine`.`Sala`
+-- Table `dimcine`.`Promocion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dim-cine`.`Sala` ;
+DROP TABLE IF EXISTS `dimcine`.`Promocion` ;
 
-CREATE TABLE IF NOT EXISTS `dim-cine`.`Sala` (
-  `idSala` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `dimcine`.`Promocion` (
+  `id` INT(11) NOT NULL,
+  `Descuento` FLOAT(4,4) NULL DEFAULT NULL,
+  `Descripcion` TEXT(200) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `dimcine`.`Sala`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `dimcine`.`Sala` ;
+
+CREATE TABLE IF NOT EXISTS `dimcine`.`Sala` (
+  `id` INT(11) NOT NULL,
   `Nombre` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`idSala`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `dim-cine`.`Promocion`
+-- Table `dimcine`.`Hechos`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dim-cine`.`Promocion` ;
+DROP TABLE IF EXISTS `dimcine`.`Hechos` ;
 
-CREATE TABLE IF NOT EXISTS `dim-cine`.`Promocion` (
-  `idPromocion` INT(11) NOT NULL,
-  `Descuento` VARCHAR(45) NULL DEFAULT NULL,
-  `Descripcion` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`idPromocion`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `dim-cine`.`Hechos`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `dim-cine`.`Hechos` ;
-
-CREATE TABLE IF NOT EXISTS `dim-cine`.`Hechos` (
+CREATE TABLE IF NOT EXISTS `dimcine`.`Hechos` (
   `idHechos` INT(11) NOT NULL,
-  `Fecha_idFecha` INT(11) NOT NULL,
-  `Cine_idCine` INT(11) NOT NULL,
   `Peliculas_id` INT(11) NOT NULL,
-  `Aforo_idAforo` INT(11) NOT NULL,
-  `Clasificacion_idClasifacion` INT(11) NOT NULL,
-  `Sala_idSala` INT(11) NOT NULL,
-  `Promocion_idPromocion` INT(11) NOT NULL,
-  `Genero_idGenero` INT(11) NOT NULL,
+  `Promocion_id` INT(11) NOT NULL,
+  `Fecha_id` INT(11) NOT NULL,
+  `Sala_id` INT(11) NOT NULL,
+  `Clasificacion_id` INT(11) NOT NULL,
+  `Cine_id` INT(11) NOT NULL,
+  `Genero_id` INT(11) NOT NULL,
+  `Aforo_id` INT(11) NOT NULL,
   PRIMARY KEY (`idHechos`),
-  CONSTRAINT `fk_Hechos_Fecha`
-    FOREIGN KEY (`Fecha_idFecha`)
-    REFERENCES `dim-cine`.`Fecha` (`idFecha`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Hechos_Cine1`
-    FOREIGN KEY (`Cine_idCine`)
-    REFERENCES `dim-cine`.`Cine` (`idCine`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Hechos_Peliculas1`
+  CONSTRAINT `fk_Hechos_Peliculas`
     FOREIGN KEY (`Peliculas_id`)
-    REFERENCES `dim-cine`.`Peliculas` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Hechos_Aforo1`
-    FOREIGN KEY (`Aforo_idAforo`)
-    REFERENCES `dim-cine`.`Aforo` (`idAforo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Hechos_Clasificacion1`
-    FOREIGN KEY (`Clasificacion_idClasifacion`)
-    REFERENCES `dim-cine`.`Clasificacion` (`idClasifacion`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Hechos_Sala1`
-    FOREIGN KEY (`Sala_idSala`)
-    REFERENCES `dim-cine`.`Sala` (`idSala`)
+    REFERENCES `dimcine`.`Peliculas` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Hechos_Promocion1`
-    FOREIGN KEY (`Promocion_idPromocion`)
-    REFERENCES `dim-cine`.`Promocion` (`idPromocion`)
+    FOREIGN KEY (`Promocion_id`)
+    REFERENCES `dimcine`.`Promocion` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Hechos_Fecha1`
+    FOREIGN KEY (`Fecha_id`)
+    REFERENCES `dimcine`.`Fecha` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Hechos_Sala1`
+    FOREIGN KEY (`Sala_id`)
+    REFERENCES `dimcine`.`Sala` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Hechos_Clasificacion1`
+    FOREIGN KEY (`Clasificacion_id`)
+    REFERENCES `dimcine`.`Clasificacion` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Hechos_Cine1`
+    FOREIGN KEY (`Cine_id`)
+    REFERENCES `dimcine`.`Cine` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Hechos_Genero1`
-    FOREIGN KEY (`Genero_idGenero`)
-    REFERENCES `dim-cine`.`Genero` (`idGenero`)
+    FOREIGN KEY (`Genero_id`)
+    REFERENCES `dimcine`.`Genero` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Hechos_Aforo1`
+    FOREIGN KEY (`Aforo_id`)
+    REFERENCES `dimcine`.`Aforo` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_Hechos_Fecha_idx` ON `dim-cine`.`Hechos` (`Fecha_idFecha` ASC);
+CREATE INDEX `fk_Hechos_Peliculas_idx` ON `dimcine`.`Hechos` (`Peliculas_id` ASC);
 
-CREATE INDEX `fk_Hechos_Cine1_idx` ON `dim-cine`.`Hechos` (`Cine_idCine` ASC);
+CREATE INDEX `fk_Hechos_Promocion1_idx` ON `dimcine`.`Hechos` (`Promocion_id` ASC);
 
-CREATE INDEX `fk_Hechos_Peliculas1_idx` ON `dim-cine`.`Hechos` (`Peliculas_id` ASC);
+CREATE INDEX `fk_Hechos_Fecha1_idx` ON `dimcine`.`Hechos` (`Fecha_id` ASC);
 
-CREATE INDEX `fk_Hechos_Aforo1_idx` ON `dim-cine`.`Hechos` (`Aforo_idAforo` ASC);
+CREATE INDEX `fk_Hechos_Sala1_idx` ON `dimcine`.`Hechos` (`Sala_id` ASC);
 
-CREATE INDEX `fk_Hechos_Clasificacion1_idx` ON `dim-cine`.`Hechos` (`Clasificacion_idClasifacion` ASC);
+CREATE INDEX `fk_Hechos_Clasificacion1_idx` ON `dimcine`.`Hechos` (`Clasificacion_id` ASC);
 
-CREATE INDEX `fk_Hechos_Sala1_idx` ON `dim-cine`.`Hechos` (`Sala_idSala` ASC);
+CREATE INDEX `fk_Hechos_Cine1_idx` ON `dimcine`.`Hechos` (`Cine_id` ASC);
 
-CREATE INDEX `fk_Hechos_Promocion1_idx` ON `dim-cine`.`Hechos` (`Promocion_idPromocion` ASC);
+CREATE INDEX `fk_Hechos_Genero1_idx` ON `dimcine`.`Hechos` (`Genero_id` ASC);
 
-CREATE INDEX `fk_Hechos_Genero1_idx` ON `dim-cine`.`Hechos` (`Genero_idGenero` ASC);
+CREATE INDEX `fk_Hechos_Aforo1_idx` ON `dimcine`.`Hechos` (`Aforo_id` ASC);
 
-USE `transc-cine` ;
+USE `transccine` ;
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Cine`
+-- Table `transccine`.`Cine`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Cine` ;
+DROP TABLE IF EXISTS `transccine`.`Cine` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Cine` (
-  `idCine` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `transccine`.`Cine` (
+  `id` INT(11) NOT NULL,
   `Nombre` VARCHAR(60) NULL DEFAULT NULL,
   `direccion` VARCHAR(120) NULL DEFAULT NULL,
   `telefono` VARCHAR(20) NULL DEFAULT NULL,
-  PRIMARY KEY (`idCine`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Pelicula`
+-- Table `transccine`.`Pelicula`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Pelicula` ;
+DROP TABLE IF EXISTS `transccine`.`Pelicula` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Pelicula` (
+CREATE TABLE IF NOT EXISTS `transccine`.`Pelicula` (
   `id` INT(11) NOT NULL,
   `titulo_distribuido` VARCHAR(200) NULL DEFAULT NULL,
   `titulo_original` VARCHAR(200) NULL DEFAULT NULL,
   `idioma_original` VARCHAR(45) NULL DEFAULT NULL,
-  `resumen` VARCHAR(45) NULL DEFAULT NULL,
+  `resumen` TEXT(500) NULL DEFAULT NULL,
   `clasificacion` VARCHAR(45) NULL DEFAULT NULL,
   `subtitulos` TINYINT(1) NULL DEFAULT NULL,
   `duracion` INT(11) NULL DEFAULT NULL,
@@ -248,11 +249,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Sala`
+-- Table `transccine`.`Sala`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Sala` ;
+DROP TABLE IF EXISTS `transccine`.`Sala` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Sala` (
+CREATE TABLE IF NOT EXISTS `transccine`.`Sala` (
   `id` INT(11) NOT NULL,
   `Nombre` VARCHAR(45) NULL DEFAULT NULL,
   `aforo` INT(11) NULL DEFAULT NULL,
@@ -260,21 +261,21 @@ CREATE TABLE IF NOT EXISTS `transc-cine`.`Sala` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_Sala_Cine1`
     FOREIGN KEY (`Cine_id`)
-    REFERENCES `transc-cine`.`Cine` (`idCine`)
+    REFERENCES `transccine`.`Cine` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_Sala_Cine1_idx` ON `transc-cine`.`Sala` (`Cine_id` ASC);
+CREATE INDEX `fk_Sala_Cine1_idx` ON `transccine`.`Sala` (`Cine_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Funcion`
+-- Table `transccine`.`Funcion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Funcion` ;
+DROP TABLE IF EXISTS `transccine`.`Funcion` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Funcion` (
+CREATE TABLE IF NOT EXISTS `transccine`.`Funcion` (
   `Pelicula_id` INT(11) NOT NULL,
   `Sala_id` INT(11) NOT NULL,
   `dia` DATE NULL DEFAULT NULL,
@@ -283,94 +284,94 @@ CREATE TABLE IF NOT EXISTS `transc-cine`.`Funcion` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_Funcion_Pelicula1`
     FOREIGN KEY (`Pelicula_id`)
-    REFERENCES `transc-cine`.`Pelicula` (`id`)
+    REFERENCES `transccine`.`Pelicula` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Funcion_Sala1`
     FOREIGN KEY (`Sala_id`)
-    REFERENCES `transc-cine`.`Sala` (`id`)
+    REFERENCES `transccine`.`Sala` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_Funcion_Pelicula1_idx` ON `transc-cine`.`Funcion` (`Pelicula_id` ASC);
+CREATE INDEX `fk_Funcion_Pelicula1_idx` ON `transccine`.`Funcion` (`Pelicula_id` ASC);
 
-CREATE INDEX `fk_Funcion_Sala1_idx` ON `transc-cine`.`Funcion` (`Sala_id` ASC);
+CREATE INDEX `fk_Funcion_Sala1_idx` ON `transccine`.`Funcion` (`Sala_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Genero`
+-- Table `transccine`.`Genero`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Genero` ;
+DROP TABLE IF EXISTS `transccine`.`Genero` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Genero` (
-  `idGenero` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `transccine`.`Genero` (
+  `id` INT(11) NOT NULL,
   `tipo` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`idGenero`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Genero_Pelicula`
+-- Table `transccine`.`Genero_Pelicula`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Genero_Pelicula` ;
+DROP TABLE IF EXISTS `transccine`.`Genero_Pelicula` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Genero_Pelicula` (
-  `Genero_idGenero` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `transccine`.`Genero_Pelicula` (
+  `Genero_id` INT(11) NOT NULL,
   `Pelicula_id` INT(11) NOT NULL,
   `id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_Genero_has_Pelicula_Genero1`
-    FOREIGN KEY (`Genero_idGenero`)
-    REFERENCES `transc-cine`.`Genero` (`idGenero`)
+    FOREIGN KEY (`Genero_id`)
+    REFERENCES `transccine`.`Genero` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Genero_has_Pelicula_Pelicula1`
     FOREIGN KEY (`Pelicula_id`)
-    REFERENCES `transc-cine`.`Pelicula` (`id`)
+    REFERENCES `transccine`.`Pelicula` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_Genero_has_Pelicula_Pelicula1_idx` ON `transc-cine`.`Genero_Pelicula` (`Pelicula_id` ASC);
+CREATE INDEX `fk_Genero_has_Pelicula_Pelicula1_idx` ON `transccine`.`Genero_Pelicula` (`Pelicula_id` ASC);
 
-CREATE INDEX `fk_Genero_has_Pelicula_Genero1_idx` ON `transc-cine`.`Genero_Pelicula` (`Genero_idGenero` ASC);
+CREATE INDEX `fk_Genero_has_Pelicula_Genero1_idx` ON `transccine`.`Genero_Pelicula` (`Genero_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Opinion`
+-- Table `transccine`.`Opinion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Opinion` ;
+DROP TABLE IF EXISTS `transccine`.`Opinion` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Opinion` (
+CREATE TABLE IF NOT EXISTS `transccine`.`Opinion` (
   `id` INT(11) NOT NULL,
   `nombre_persona` VARCHAR(60) NULL DEFAULT NULL,
   `edad` INT(11) NULL DEFAULT NULL,
   `calificacion` INT(11) NULL DEFAULT NULL,
-  `comentario` TEXT NULL DEFAULT NULL,
+  `comentario` TEXT(1500) NULL DEFAULT NULL,
   `fecha` DATE NULL DEFAULT NULL,
   `Pelicula_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_Opinion_Pelicula1`
     FOREIGN KEY (`Pelicula_id`)
-    REFERENCES `transc-cine`.`Pelicula` (`id`)
+    REFERENCES `transccine`.`Pelicula` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_Opinion_Pelicula1_idx` ON `transc-cine`.`Opinion` (`Pelicula_id` ASC);
+CREATE INDEX `fk_Opinion_Pelicula1_idx` ON `transccine`.`Opinion` (`Pelicula_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Pais`
+-- Table `transccine`.`Pais`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Pais` ;
+DROP TABLE IF EXISTS `transccine`.`Pais` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Pais` (
+CREATE TABLE IF NOT EXISTS `transccine`.`Pais` (
   `id` INT(11) NOT NULL,
   `nombre` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
@@ -379,37 +380,37 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Pelicula_Pais`
+-- Table `transccine`.`Pelicula_Pais`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Pelicula_Pais` ;
+DROP TABLE IF EXISTS `transccine`.`Pelicula_Pais` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Pelicula_Pais` (
+CREATE TABLE IF NOT EXISTS `transccine`.`Pelicula_Pais` (
   `Pelicula_id` INT(11) NOT NULL,
   `Pais_id` INT(11) NOT NULL,
   CONSTRAINT `fk_Pelicula_has_Pais_Pais1`
     FOREIGN KEY (`Pais_id`)
-    REFERENCES `transc-cine`.`Pais` (`id`)
+    REFERENCES `transccine`.`Pais` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Pelicula_has_Pais_Pelicula`
     FOREIGN KEY (`Pelicula_id`)
-    REFERENCES `transc-cine`.`Pelicula` (`id`)
+    REFERENCES `transccine`.`Pelicula` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_Pelicula_has_Pais_Pais1_idx` ON `transc-cine`.`Pelicula_Pais` (`Pais_id` ASC);
+CREATE INDEX `fk_Pelicula_has_Pais_Pais1_idx` ON `transccine`.`Pelicula_Pais` (`Pais_id` ASC);
 
-CREATE INDEX `fk_Pelicula_has_Pais_Pelicula_idx` ON `transc-cine`.`Pelicula_Pais` (`Pelicula_id` ASC);
+CREATE INDEX `fk_Pelicula_has_Pais_Pelicula_idx` ON `transccine`.`Pelicula_Pais` (`Pelicula_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Roles`
+-- Table `transccine`.`Roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Roles` ;
+DROP TABLE IF EXISTS `transccine`.`Roles` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Roles` (
+CREATE TABLE IF NOT EXISTS `transccine`.`Roles` (
   `id` INT(11) NOT NULL,
   `tipo` VARCHAR(100) NULL DEFAULT NULL,
   `salario` INT(20) NULL DEFAULT NULL,
@@ -419,32 +420,32 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Persona`
+-- Table `transccine`.`Persona`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Persona` ;
+DROP TABLE IF EXISTS `transccine`.`Persona` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Persona` (
+CREATE TABLE IF NOT EXISTS `transccine`.`Persona` (
   `id` INT(11) NOT NULL,
   `nombre` VARCHAR(60) NULL DEFAULT NULL,
   `Pais_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_Persona_Pais1`
     FOREIGN KEY (`Pais_id`)
-    REFERENCES `transc-cine`.`Pais` (`id`)
+    REFERENCES `transccine`.`Pais` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_Persona_Pais1_idx` ON `transc-cine`.`Persona` (`Pais_id` ASC);
+CREATE INDEX `fk_Persona_Pais1_idx` ON `transccine`.`Persona` (`Pais_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`Pelicula_Persona`
+-- Table `transccine`.`Pelicula_Persona`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`Pelicula_Persona` ;
+DROP TABLE IF EXISTS `transccine`.`Pelicula_Persona` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`Pelicula_Persona` (
+CREATE TABLE IF NOT EXISTS `transccine`.`Pelicula_Persona` (
   `Pelicula_id` INT(11) NOT NULL,
   `Persona_id` INT(11) NOT NULL,
   `Roles_id` INT(11) NOT NULL,
@@ -452,50 +453,50 @@ CREATE TABLE IF NOT EXISTS `transc-cine`.`Pelicula_Persona` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_Pelicula_Persona_Roles1`
     FOREIGN KEY (`Roles_id`)
-    REFERENCES `transc-cine`.`Roles` (`id`)
+    REFERENCES `transccine`.`Roles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Pelicula_has_Persona_Pelicula1`
     FOREIGN KEY (`Pelicula_id`)
-    REFERENCES `transc-cine`.`Pelicula` (`id`)
+    REFERENCES `transccine`.`Pelicula` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Pelicula_has_Persona_Persona1`
     FOREIGN KEY (`Persona_id`)
-    REFERENCES `transc-cine`.`Persona` (`id`)
+    REFERENCES `transccine`.`Persona` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_Pelicula_has_Persona_Persona1_idx` ON `transc-cine`.`Pelicula_Persona` (`Persona_id` ASC);
+CREATE INDEX `fk_Pelicula_has_Persona_Persona1_idx` ON `transccine`.`Pelicula_Persona` (`Persona_id` ASC);
 
-CREATE INDEX `fk_Pelicula_has_Persona_Pelicula1_idx` ON `transc-cine`.`Pelicula_Persona` (`Pelicula_id` ASC);
+CREATE INDEX `fk_Pelicula_has_Persona_Pelicula1_idx` ON `transccine`.`Pelicula_Persona` (`Pelicula_id` ASC);
 
-CREATE INDEX `fk_Pelicula_Persona_Roles1_idx` ON `transc-cine`.`Pelicula_Persona` (`Roles_id` ASC);
+CREATE INDEX `fk_Pelicula_Persona_Roles1_idx` ON `transccine`.`Pelicula_Persona` (`Roles_id` ASC);
 
 
 -- -----------------------------------------------------
--- Table `transc-cine`.`promocion`
+-- Table `transccine`.`promocion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `transc-cine`.`promocion` ;
+DROP TABLE IF EXISTS `transccine`.`promocion` ;
 
-CREATE TABLE IF NOT EXISTS `transc-cine`.`promocion` (
+CREATE TABLE IF NOT EXISTS `transccine`.`promocion` (
   `id` INT(11) NOT NULL,
   `nombre` VARCHAR(45) NULL DEFAULT NULL,
-  `descripcion` TEXT NULL DEFAULT NULL,
+  `descripcion` TEXT(200) NULL DEFAULT NULL,
   `Funcion_id` INT(11) NOT NULL,
   `descuento` FLOAT(4,4) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_promocion_Funcion1`
     FOREIGN KEY (`Funcion_id`)
-    REFERENCES `transc-cine`.`Funcion` (`id`)
+    REFERENCES `transccine`.`Funcion` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX `fk_promocion_Funcion1_idx` ON `transc-cine`.`promocion` (`Funcion_id` ASC);
+CREATE INDEX `fk_promocion_Funcion1_idx` ON `transccine`.`promocion` (`Funcion_id` ASC);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
