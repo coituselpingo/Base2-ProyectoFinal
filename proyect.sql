@@ -57,7 +57,7 @@ DROP TABLE IF EXISTS `dimcine`.`Clasificacion` ;
 
 CREATE TABLE IF NOT EXISTS `dimcine`.`Clasificacion` (
   `id` INT(11) NOT NULL,
-  `rango` VARCHAR(45) NULL DEFAULT NULL,
+  `rango` INT(2) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -237,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `transccine`.`Pelicula` (
   `titulo_original` VARCHAR(200) NULL DEFAULT NULL,
   `idioma_original` VARCHAR(45) NULL DEFAULT NULL,
   `resumen` TEXT(500) NULL DEFAULT NULL,
-  `clasificacion` VARCHAR(45) NULL DEFAULT NULL,
+  `clasificacion` INT(2) NULL DEFAULT NULL,
   `subtitulos` TINYINT(1) NULL DEFAULT NULL,
   `duracion` INT(11) NULL DEFAULT NULL,
   `url` VARCHAR(500) NULL DEFAULT NULL,

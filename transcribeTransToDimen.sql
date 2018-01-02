@@ -52,7 +52,7 @@ Begin
     declare pelicula varchar(200);
     declare presupuesto int(20);
     declare genero varchar(200);
-    declare clasificacion varchar(45);
+    declare clasificacion int(2);
     declare sala varchar(45);
     declare aforo int(11);
     declare descuento float(4,4);
